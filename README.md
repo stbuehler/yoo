@@ -8,8 +8,8 @@
 
 * Configure path in handle.lua
 * lighttpd.conf:
-** load mod_magnet in server.modules
-** magnet.attract-physical-path-to = ( "/<some-path>/handle.lua" )
+  * load mod_magnet in server.modules
+  * magnet.attract-physical-path-to = ( "/<some-path>/handle.lua" )
 
 ## How it works
 
