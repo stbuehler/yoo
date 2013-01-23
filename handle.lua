@@ -3,6 +3,8 @@
 -- if this file is <dir>/handle.lua append ";<dir>/?.lua" to the package path
 package.path = package.path .. ";/srv/yoo/?.lua"
 
+-- how long to cache files before checking stat() again (in seconds)
+_G.cache_timeout = 10
 
 -- no changes needed below this line
 

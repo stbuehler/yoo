@@ -47,8 +47,8 @@ function Cache:get(file)
 	if not e then
 		return self:reload(file, time)
 	end
-	-- only look in 5 min intervals
-	if e.cachetime + 300 > time then
+	-- only look after timeout has passed
+	if e.cachetime + cache_timeout > time then
 		return e.data
 	end
 	local stat = lighty.stat(file)
