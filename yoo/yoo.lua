@@ -39,6 +39,11 @@ local function handle_exit(yoo)
 	return false
 end
 
+local function handle_unknown_action(yoo)
+	setStatus(500)
+	return false
+end
+
 local function parseAction(method, params)
 	if method == "auth" then
 		return handle_auth
@@ -51,8 +56,8 @@ local function parseAction(method, params)
 	elseif method == "exit" then
 		return handle_exit
 	end
-	print("Unsupported action '"..method.."' ('"..params.."')")
-	return nil
+	print("Unsupported action '"..method.."' ('"..params.."'), will trigger Internal Server Error instead")
+	return handle_unknown_action
 end
 
 local function readYoo(filename)
@@ -60,13 +65,15 @@ local function readYoo(filename)
 	local line
 	local prefix, method, params
 	for line in io.lines(filename) do
-		if line:byte(1) ~= "#" then
-			prefix, method, params = string.match(line, "^([^:]*): ?([%w-]*)[^%w]*(.*)$")
+		if line:len() > 0 and line:byte(1) ~= "#" then
+			prefix, method, params = string.match(line, "^([^:]+):%s*([^%s]+)%s*(.*)$")
 			if prefix and method then
 				local handler = parseAction(method, params)
 				if handler then
 					table.insert(actions, { prefix = prefix, handler = handler } )
 				end
+			else
+				print("Couldn't parse line: '"..line.."'")
 			end
 		end
 	end
