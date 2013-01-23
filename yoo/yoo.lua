@@ -35,6 +35,19 @@ local function handle_notfile(dest)
 	end
 end
 
+local function handle_redirect(params)
+	local st, dest
+	st, dest = string.match(params, "^(3%d%d)%s+(.*)$")
+	if not st or not dest then
+		st = 302
+		dest = params
+	end
+	return function(yoo)
+		redirect(st, dest)
+		return false
+	end
+end
+
 local function handle_exit(yoo)
 	return false
 end
@@ -53,6 +66,8 @@ local function parseAction(method, params)
 		return handle_notexist(params)
 	elseif method == "not-file" then
 		return handle_notfile(params)
+	elseif method == "redirect" then
+		return handle_redirect(params)
 	elseif method == "exit" then
 		return handle_exit
 	end

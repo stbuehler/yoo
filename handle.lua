@@ -45,6 +45,12 @@ function _G.rewrite(url)
 -- 	lighty.env["physical.path"]     = lighty.env["physical.doc-root"] .. lighty.env["physical.rel-path"]
 end
 
+function _G.redirect(st, url)
+	lighty.header["Location"] = lighty.env["uri.scheme"]..'://'..lighty.env["uri.authority"]..url
+	setStatus(st)
+	content = ""
+end
+
 local Yoo = require("yoo.yoo")
 
 yoo = Yoo()

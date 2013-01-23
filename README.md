@@ -14,10 +14,13 @@
 ## How it works
 
 It searches in the document root for a file ".yoo" with one action per line;
-each line has the following form: <prefix>: <action> <optional parameters>
+each line has the following form: `<prefix>: <action> <optional parameters>`
 
 Example:
 /secure: auth
+/old: rewrite /new
+/temp: redirect /somewhere/else
+/deprecated: redirect 301 /somewhere/else
 
 Now all urls starting with "/secure" will require authentication
 
@@ -27,6 +30,7 @@ Now all urls starting with "/secure" will require authentication
 * rewrite: rewrites to destination (see note blow)
 * not-exist: conditional rewrite - if physical file does not exist
 * not-file: conditional rewrite - if not a regular file
+* redirect: redirects to an absolute url on the same vhost
 * exit: stop handling in yoo, continue with standard handling
 
 ## Note
