@@ -1,6 +1,10 @@
 
 -- configure package search path
-package.path = package.path .. ";/srv/yoo/yoo/?.lua"
+-- if this file is <dir>/handle.lua append ";<dir>/?.lua" to the package path
+package.path = package.path .. ";/srv/yoo/?.lua"
+
+
+-- no changes needed below this line
 
 local content = ""
 local status = nil
