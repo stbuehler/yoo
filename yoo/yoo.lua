@@ -92,7 +92,7 @@ end
 function Yoo:getAuth()
 	local x = self.auth
 	if x then return x end
-	x = Auth(self.docroot .. ".yoo.auth", lighty.env["physical.doc-root"])
+	x = Auth(self.docroot .. ".yoo.auth")
 	self.auth = x
 	return x
 end
